@@ -17,7 +17,7 @@ def download_video(key_word):
 
 
 def split_video(key_word):
-    video_processor = VideoProcessor("视频源地址", './' + key_word + '/', "./frame/")
+    video_processor = VideoProcessor("./video_getter/" + key_word, './' + key_word + '/', "./frame/")
     video_processor.videoToSubVideo()
     video_processor.video2frame(320, 240, 1)
 
