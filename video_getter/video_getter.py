@@ -6,15 +6,14 @@ from bs4 import BeautifulSoup
 
 
 class VideoGetter:
-    driver = None
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver")
     video_id_list = []
     video_path = ''
-    key_word = ''
+    key_word = []
 
     def __init__(self, key_word):
-        driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver")
-        driver.get("https://www.youtube.com/")
-        self.video_path = os.path.join('../get_video/', key_word)
+        self.driver.get("https://www.youtube.com/")
+        self.video_path = os.path.join('./', key_word[0])
         self.key_word = key_word
 
     def execute_limit(self, limit):
@@ -52,7 +51,7 @@ class VideoGetter:
         self.driver.quit()
 
     def generate_cmd(self, output_filename='download.sh'):
-        filename = os.path.join("/", self.video_path, "v_%s.mp4")
+        filename = os.path.join(self.video_path, "v_%s.mp4")
         cmd_base = "youtube-dl -f best -f mp4 "
         cmd_base += '"https://www.youtube.com/watch?v=%s" '
         cmd_base += '-o "%s"' % filename
@@ -63,7 +62,7 @@ class VideoGetter:
 
 
 if __name__ == '__main__':
-    video_getter = VideoGetter("Chinese")
+    video_getter = VideoGetter(["Biden"])
     video_getter.getVideoFromYoutubeByName(1)
     print(video_getter.video_id_list)
     video_getter.generate_cmd()

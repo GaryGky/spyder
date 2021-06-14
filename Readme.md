@@ -29,3 +29,9 @@ FFMPEG: tag 0x47504a4d/'MJPG' is not supported with codec id 7 and format 'mp4 /
 ```
 
 解决：转换成mp4v即可；
+
+
+
+## GitHub
+
+https://github.com/GaryGky/spyder

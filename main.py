@@ -1,13 +1,12 @@
+import argparse
 import os
 
 from face.recognition import FaceRecognition
 from video_getter.video_getter import VideoGetter
 from video_process.video_processor import VideoProcessor
 
-key_word = "Europe Cup/"
 
-
-def download_video():
+def download_video(key_word):
     video_getter = VideoGetter(key_word)
     # 只获取一批视频
     video_getter.getVideoFromYoutubeByName(1)
@@ -17,8 +16,7 @@ def download_video():
     os.system('chmod +x ./download.sh && sh ./download.sh')
 
 
-def split_video():
-    # TODO: 添加命令行控制
+def split_video(key_word):
     video_processor = VideoProcessor("视频源地址", './' + key_word + '/', "./frame/")
     video_processor.videoToSubVideo()
     video_processor.video2frame(320, 240, 1)
@@ -32,11 +30,15 @@ def filter_video():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='爬虫参数')
+    parser.add_argument('--key_word', help='视频查询关键词')
+    args = parser.parse_args()
+
     # 下载视频
-    download_video()
+    download_video(args.__dict__.get('key_word'))
 
     # 切分视频
-    split_video()
+    split_video(args.__dict__.get('key_word'))
 
     # 过滤视频
     filter_video()

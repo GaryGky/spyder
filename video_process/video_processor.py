@@ -23,7 +23,7 @@ class VideoProcessor:
         # 读入视频文件
         video_capture = cv2.VideoCapture(self.videoSrcPath)
 
-        # FPS
+        # FPS: Frame Per Second
         fps = video_capture.get(5)
         print(video_capture.isOpened())
         print("fps", video_capture.get(5))
@@ -59,7 +59,6 @@ class VideoProcessor:
                 v = cv2.VideoWriter(self.videoSavePath + str(frame_index // (fps * interval)) + '.mp4', fourcc, fps,
                                     size)
                 flag += 1
-
                 print("save: %d" % flag)
             success, bgr_image = video_capture.read()
             frame_index = frame_index + 1
@@ -93,9 +92,9 @@ class VideoProcessor:
 
             while success:
                 success, frame = cap.read()
-                print("---> 正在读取第%d帧:" % frame_index, success)  # 我的是Python3.6
+                print("----> 正在读取第%d帧:" % frame_index, success)  # 我的是Python3.6
 
-                if frame_index % interval == 0 and success:  # 如路径下有多个视频文件时视频最后一帧报错因此条件语句中加and success
+                if frame_index % interval == 0 and success:
                     resize_frame = cv2.resize(frame, (frame_width, frame_height), interpolation=cv2.INTER_AREA)
                     cv2.imwrite(each_video_save_full_path + "%d.jpg" % frame_count, resize_frame)
                     frame_count += 1
@@ -106,8 +105,8 @@ class VideoProcessor:
 
 
 if __name__ == '__main__':
-    video_processor = VideoProcessor('/Users/bytedance/PycharmProjects/demo/data/v_44HjBgacy1Y.mp4',
-                                     './key_word/',
+    video_processor = VideoProcessor("/Users/bytedance/PycharmProjects/demo/video_getter/Biden/v_bHZMHZgkzBQ.mp4",
+                                     './Biden/',
                                      './frame/')
     video_processor.videoToSubVideo()
     video_processor.video2frame(320, 240, 1)
