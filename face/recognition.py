@@ -14,7 +14,7 @@ class FaceRecognition:
 
     def __init__(self, frame_src):
         self.frame_src = frame_src
-        self.face_square_threshold = 100 * 100
+        self.face_square_threshold = 10 * 10
 
     # 识别并单张图片的计算人脸面积
     def face_calculate(self, pic_path):
@@ -29,9 +29,9 @@ class FaceRecognition:
         def square(face_coordinate):
             return abs(face_coordinate[0] - face_coordinate[2]) * abs(face_coordinate[1] - face_coordinate[3])
 
-        # if square(face_location[0]) < self.face_square_threshold:
-        #     self.is_satisfaction = False
-        #     return False
+        if square(face_location[0]) < self.face_square_threshold:
+            self.is_satisfaction = False
+            return False
 
         return True
 

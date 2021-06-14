@@ -17,7 +17,9 @@ def download_video(key_word):
 
 
 def split_video(key_word):
-    video_processor = VideoProcessor("./video_getter/" + key_word, './' + key_word + '/', "./frame/")
+    video_processor = VideoProcessor(videoSrcPath="./video_getter/" + key_word,
+                                     videoSavePath='./' + key_word + '/',
+                                     videoFrameSavePath="./frame/")
     video_processor.videoToSubVideo()
     video_processor.video2frame(320, 240, 1)
 
@@ -35,7 +37,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # 下载视频
-    download_video(args.__dict__.get('key_word'))
+    print([args.__dict__.get('key_word')])
+    download_video([args.__dict__.get('key_word')])
 
     # 切分视频
     split_video(args.__dict__.get('key_word'))
