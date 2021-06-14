@@ -23,6 +23,8 @@ class VideoProcessor:
         # 读入视频文件
         video_capture = cv2.VideoCapture(self.videoSrcPath)
 
+        # get方法可以获取视频呢属性
+
         # FPS: Frame Per Second
         fps = video_capture.get(5)
         print(video_capture.isOpened())
@@ -43,24 +45,28 @@ class VideoProcessor:
         # 当前截取的第几段
         flag = 0
 
-        success, bgr_image = video_capture.read()
+        success, frame = video_capture.read()
+        # 设置视频编码
         fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        # 创建一个IO流
         v = cv2.VideoWriter(self.videoSavePath + str(frame_index // (fps * interval)) + '.mp4', fourcc, fps, size)
         while success:  # 循环读取视频帧
             if (frame_index // (fps * interval)) % 2 == 0:
                 if v.isOpened():
-                    v.write(bgr_image)
+                    v.write(frame)
 
+            # 释放掉前一个IO流
             if frame_index == (fps * interval) * flag * 2 + (fps * interval):
                 if v.isOpened():
                     v.release()
 
+            # 重建IO流
             if frame_index == (fps * interval) * flag * 2:
                 v = cv2.VideoWriter(self.videoSavePath + str(frame_index // (fps * interval)) + '.mp4', fourcc, fps,
                                     size)
                 flag += 1
                 print("save: %d" % flag)
-            success, bgr_image = video_capture.read()
+            success, frame = video_capture.read()
             frame_index = frame_index + 1
 
         video_capture.release()
@@ -84,6 +90,8 @@ class VideoProcessor:
             cap = cv2.VideoCapture(each_video_full_path)
             frame_index = 0
             frame_count = 0
+
+            # 判断是否读取成功
             if cap.isOpened():
                 success = True
             else:
@@ -91,9 +99,11 @@ class VideoProcessor:
                 print("读取失败!")
 
             while success:
+                # 返回捕获的帧
                 success, frame = cap.read()
-                print("----> 正在读取第%d帧:" % frame_index, success)  # 我的是Python3.6
+                print("----> 正在读取第%d帧:" % frame_index, success)
 
+                # 每隔interval抽一帧 -> interval越大，抽到的帧越少
                 if frame_index % interval == 0 and success:
                     resize_frame = cv2.resize(frame, (frame_width, frame_height), interpolation=cv2.INTER_AREA)
                     cv2.imwrite(each_video_save_full_path + "%d.jpg" % frame_count, resize_frame)
@@ -101,6 +111,7 @@ class VideoProcessor:
 
                 frame_index += 1
 
+            # 关闭文件
             cap.release()
 
 
