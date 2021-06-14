@@ -120,4 +120,4 @@ if __name__ == '__main__':
                                      './Biden/',
                                      './frame/')
     video_processor.videoToSubVideo()
-    video_processor.video2frame(320, 240, 1)
+    video_processor.video2frame(frame_width=320, frame_height=240, interval=1)
