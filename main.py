@@ -1,7 +1,7 @@
 import os
 
 from face.recognition import FaceRecognition
-from get_video.video_getter import VideoGetter
+from video_getter.video_getter import VideoGetter
 from video_process.video_processor import VideoProcessor
 
 key_word = "Europe Cup/"
