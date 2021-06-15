@@ -27,9 +27,7 @@ def split_video(key_word):
     index = random_pick(len(os.listdir(videoDir)))
     print("正在处理的视频为：" + os.path.join(videoDir, os.listdir(videoDir)[index]))
 
-    video_processor = VideoProcessor(videoSrcPath="/Users/bytedance/PycharmProjects/demo/success_video/人脸识别成功视频.mp4",
-                                     # 输入一个视频的绝对路径
-
+    video_processor = VideoProcessor(videoSrcPath=os.path.join(videoDir, os.listdir(videoDir)[index]),  # 输入一个视频的绝对路径
                                      videoSavePath=os.path.join('./output/', 'sub_video/'),  # 输入切分后视频的保存路径
                                      videoFrameSavePath="./output/frame/")  # 输入切分后视频的帧的保存路径
     video_processor.videoToSubVideo()
@@ -62,23 +60,23 @@ def success_demo():
 
 
 if __name__ == '__main__':
-    # parser = argparse.ArgumentParser(description='爬虫参数')
-    # parser.add_argument('--key_word', help='视频查询关键词')
-    # args = parser.parse_args()
-    #
-    # if not os.path.exists('./output'):
-    #     os.mkdir('./output')
-    #
-    # # 下载视频
-    # print([args.__dict__.get('key_word')])
-    # download_video([args.__dict__.get('key_word')])
-    #
-    # # 切分视频
-    # split_video(args.__dict__.get('key_word'))
-    #
-    # # 过滤视频
-    # filter_video()
+    parser = argparse.ArgumentParser(description='爬虫参数')
+    parser.add_argument('--key_word', help='视频查询关键词')
+    args = parser.parse_args()
 
-    success_demo()
+    if not os.path.exists('./output'):
+        os.mkdir('./output')
+
+    # 下载视频
+    print([args.__dict__.get('key_word')])
+    download_video([args.__dict__.get('key_word')])
+
+    # 切分视频
+    split_video(args.__dict__.get('key_word'))
+
+    # 过滤视频
+    filter_video()
+
+    # success_demo()
 
     # 剩下的视频就是符合需求的视频
