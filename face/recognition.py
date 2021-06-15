@@ -29,11 +29,12 @@ class FaceRecognition:
         def square(face_coordinate):
             return abs(face_coordinate[0] - face_coordinate[2]) * abs(face_coordinate[1] - face_coordinate[3])
 
-        if square(face_location[0]) < self.face_square_threshold:
-            self.is_satisfaction = False
-            return False
+        # 只要存在一块人脸大于阈值，则返回TRUE
+        for location in face_location:
+            if square(location) > self.face_square_threshold:
+                return True
 
-        return True
+        return False
 
     # 识别一个frame文件夹下的所有图片
     def batch_process(self):
@@ -46,6 +47,8 @@ class FaceRecognition:
             if not self.face_calculate(pic_path):
                 will_delete = 1
                 break
+
+        # 删除frame目录
         if will_delete == 1:
             shutil.rmtree(self.frame_src)
         return will_delete

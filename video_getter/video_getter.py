@@ -12,11 +12,11 @@ class VideoGetter:
     key_word = []
 
     def __init__(self, key_word):
-        if not os.path.exists('../output'):
-            os.mkdir('../output')
+        if not os.path.exists('./output'):
+            os.mkdir('./output')
 
         self.driver.get("https://www.youtube.com/")
-        self.video_path = os.path.join('../output/', key_word[0])
+        self.video_path = os.path.join('./output/', key_word[0])
         self.key_word = key_word
 
     def execute_limit(self, limit):
@@ -58,10 +58,17 @@ class VideoGetter:
         cmd_base = "youtube-dl -f best -f mp4 "
         cmd_base += '"https://www.youtube.com/watch?v=%s" '
         cmd_base += '-o "%s"' % filename
+
+        cnt = 0
         with open(output_filename, "w") as fobj:
             for vid in self.video_id_list:
                 cmd = cmd_base % (vid, vid)
                 fobj.write("%s\n" % cmd)
+
+                # Debug: 限制最多只拉3个视频
+                cnt += 1
+                if cnt >= 3:
+                    break
 
 
 if __name__ == '__main__':
