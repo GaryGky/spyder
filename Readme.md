@@ -14,6 +14,15 @@
    4. 判断：对于每一帧，计算其人脸大小面积是否全部超过设定的阈值，假设为：10cm2；
    5. 持久化：对于符合条件的帧，保存到本地；
 
+## 运行方式
+
+```Python
+python main.py --key_word=Biden #key_word为必填项
+
+output: 
+  # 如果有满足筛选条件的视频，会保存在./output/sub_video和./output/frame两个目录下
+```
+
 ## 技术栈
 
 - 面向YouTube爬虫（selenium）
@@ -33,6 +42,8 @@ FFMPEG: tag 0x47504a4d/'MJPG' is not supported with codec id 7 and format 'mp4 /
 #### selenium打开网页后不运行脚本
 
 原因：PyCache缓存导致，删除缓存即可。
+
+关于__py_cache__ ，是一个缓存文件，Python解释器可以直接把高级语言转换为字节码，然后由机器执行；在执行一个脚本的时候会先检查当前目录下是否存在缓存字节码，如果存在的话，就不会重新解释执行了，而是直接执行字节码。
 
 #### 下载到第五个视频的时候，网速明显下降
 
