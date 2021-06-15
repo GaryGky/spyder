@@ -26,12 +26,12 @@ class VideoProcessor:
         # get方法可以获取视频呢属性
 
         # FPS: Frame Per Second
-        fps = video_capture.get(5)
+        fps = int(video_capture.get(5)) # 此处应取整
         print(video_capture.isOpened())
-        print("fps", video_capture.get(5))
+        print("FPS: ", fps)
 
         # 总帧数
-        print("COUNT", video_capture.get(7))
+        print("总帧数", video_capture.get(7))
 
         # 视频的宽和高
         size = (int(video_capture.get(3)), int(video_capture.get(4)))
@@ -75,7 +75,7 @@ class VideoProcessor:
     def video2frame(self, frame_width, frame_height, interval):
         videos = os.listdir(self.videoSavePath)
         for each_video in videos:
-            print("正在读取视频：", each_video)  # 我的是Python3.6
+            print("正在读取视频：", each_video)
 
             each_video_name = each_video[:-4]
             if not os.path.exists(self.framesSavePath + each_video_name):
@@ -116,8 +116,9 @@ class VideoProcessor:
 
 
 if __name__ == '__main__':
-    video_processor = VideoProcessor("/Users/bytedance/PycharmProjects/demo/video_getter/Biden/v_bHZMHZgkzBQ.mp4",
-                                     './Biden/',
-                                     './frame/')
+    video_processor = VideoProcessor(
+        videoSrcPath="/Users/bytedance/PycharmProjects/demo/output/Biden/v_fTr09nqhhr8.mp4",
+        videoSavePath='/Users/bytedance/PycharmProjects/demo/output/sub_video/',
+        videoFrameSavePath='/Users/bytedance/PycharmProjects/demo/output/frame/')
     video_processor.videoToSubVideo()
     video_processor.video2frame(frame_width=320, frame_height=240, interval=1)

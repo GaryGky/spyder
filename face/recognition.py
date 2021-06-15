@@ -58,8 +58,8 @@ def TestFaceCalculate():
 
 
 def TestBatchProcess():
-    Dir = "/Users/bytedance/PycharmProjects/demo/video_process/frame/"
-    videoDir = "/Users/bytedance/PycharmProjects/demo/video_process/Biden/"
+    Dir = "/Users/bytedance/PycharmProjects/demo/output/frame/"
+    videoDir = "/Users/bytedance/PycharmProjects/demo/output/sub_video/"
     dirs = os.listdir(Dir)
     for dir in dirs:
         print("正在计算的目录: " + Dir + dir)
@@ -71,5 +71,4 @@ def TestBatchProcess():
 
 
 if __name__ == '__main__':
-    # TestFaceCalculate()
     TestBatchProcess()

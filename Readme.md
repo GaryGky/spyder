@@ -30,6 +30,11 @@ FFMPEG: tag 0x47504a4d/'MJPG' is not supported with codec id 7 and format 'mp4 /
 
 解决：转换成mp4v即可；
 
+### 需求不明确
+
+1. 只需要提取视频长度为5min以内的？
+2. 视频中如果出现多个人脸，只要有一个大于阈值，就判定为有效？
+
 
 
 ## GitHub

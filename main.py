@@ -17,9 +17,11 @@ def download_video(key_word):
 
 
 def split_video(key_word):
-    video_processor = VideoProcessor(videoSrcPath="./video_getter/" + key_word,
-                                     videoSavePath='./' + key_word + '/',
-                                     videoFrameSavePath="./frame/")
+    videoDir = "./" + key_word
+    print("正在处理的视频为：" + os.path.join(videoDir, os.listdir(videoDir)[0]))
+    video_processor = VideoProcessor(videoSrcPath=os.path.join(videoDir, os.listdir(videoDir)[0]),  # 输入一个视频的绝对路径
+                                     videoSavePath='./' + key_word + '/',  # 输入切分后视频的保存路径
+                                     videoFrameSavePath="./frame/")  # 输入切分后视频的帧的保存路径
     video_processor.videoToSubVideo()
     video_processor.video2frame(320, 240, 1)
 
@@ -36,9 +38,9 @@ if __name__ == '__main__':
     parser.add_argument('--key_word', help='视频查询关键词')
     args = parser.parse_args()
 
-    # 下载视频
-    print([args.__dict__.get('key_word')])
-    download_video([args.__dict__.get('key_word')])
+    # # 下载视频
+    # print([args.__dict__.get('key_word')])
+    # download_video([args.__dict__.get('key_word')])
 
     # 切分视频
     split_video(args.__dict__.get('key_word'))

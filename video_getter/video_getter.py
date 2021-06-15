@@ -12,8 +12,11 @@ class VideoGetter:
     key_word = []
 
     def __init__(self, key_word):
+        if not os.path.exists('../output'):
+            os.mkdir('../output')
+
         self.driver.get("https://www.youtube.com/")
-        self.video_path = os.path.join('./', key_word[0])
+        self.video_path = os.path.join('../output/', key_word[0])
         self.key_word = key_word
 
     def execute_limit(self, limit):
@@ -65,4 +68,5 @@ if __name__ == '__main__':
     video_getter = VideoGetter(["Biden"])
     video_getter.getVideoFromYoutubeByName(1)
     print(video_getter.video_id_list)
-    video_getter.generate_cmd()
+    video_getter.generate_cmd('./output/download.sh')
+    os.system('chmod +x ./output/download.sh && sh ./output/download.sh')
